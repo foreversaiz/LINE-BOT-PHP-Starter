@@ -13,6 +13,18 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
+			if ($text == "1087")
+			{
+				$text = "นายกิตติศักดิ์ เสนาการ <BR> ติดต่อคุณ ประวิทย์ มั่นคง  ห้อง 301";
+			}elseif ($text == "1111")
+			{
+				$text = "นายสมชาย ทองดี <BR> ติดต่อคุณ นวัตกรณ์ บุญศิริ  ห้อง 1012";
+			}elseif ($text == "2222")
+			{
+				$text = "นายยอดยุทธิ์ ประมุขผล <BR> ติดต่อคุณ ชูวิทย์ กลิ่นดี ห้อง 722";
+			}
+
+
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
