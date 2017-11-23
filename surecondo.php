@@ -15,13 +15,13 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			if ($text == "1087")
 			{
-				$text = "นายกิตติศักดิ์ เสนาการ\n ติดต่อคุณ ประวิทย์ มั่นคง  ห้อง 301";
+				$text = "คุณกิตติศักดิ์ เสนาการ\nติดต่อคุณ ประวิทย์ มั่นคง\nห้อง 301";
 			}elseif ($text == "1111")
 			{
-				$text = "นายสมชาย ทองดี \n ติดต่อคุณ นวัตกรณ์ บุญศิริ  ห้อง 1012";
+				$text = "คุณสมชาย ทองดี \nติดต่อคุณ นวัตกรณ์ บุญศิริ\nห้อง 1012";
 			}elseif ($text == "2222")
 			{
-				$text = "นายยอดยุทธิ์ ประมุขผล \n ติดต่อคุณ ชูวิทย์ กลิ่นดี ห้อง 722";
+				$text = "คุณยอดยุทธิ์ ประมุขผล \nติดต่อคุณ ชูวิทย์ กลิ่นดี\nห้อง 722";
 			}
 
 
@@ -30,9 +30,18 @@ if (!is_null($events['events'])) {
 
 			// Build message to reply back
 			$messages = [
-				'type' => 'text',
+			'type' => 'text',
 				'text' => $text
+			,			
+			'type' => 'text',
+				'text' => $text
+			
 			];
+
+
+
+
+
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
