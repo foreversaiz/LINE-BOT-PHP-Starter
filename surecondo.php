@@ -34,7 +34,7 @@ if (!is_null($events['events'])) {
 				'text' => $text
 			,			
 			'type' => 'text',
-				'text' => $text
+				'text' =>"xxxx"
 			
 			];
 
