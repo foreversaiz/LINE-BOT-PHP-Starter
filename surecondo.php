@@ -23,7 +23,10 @@ if (!is_null($events['events'])) {
 			{
 				$text = "คุณยอดยุทธิ์ ประมุขผล \nติดต่อคุณ ชูวิทย์ กลิ่นดี\nห้อง 722";
 			}elseif (strpos($text, 'หอ') !== false) {
-				$text = "ทดสอบ";
+				$text = "หอพยัคฆ์ลงรอบ 20.00 ห้อง 6 7 8";
+			}else
+			{
+				$text = "";
 			}
 
 
@@ -35,12 +38,6 @@ if (!is_null($events['events'])) {
 				'type' => 'text',
 				'text' => $text
 			];
-
-
-
-
-
-
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
