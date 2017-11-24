@@ -22,6 +22,8 @@ if (!is_null($events['events'])) {
 			}elseif ($text == "2222")
 			{
 				$text = "คุณยอดยุทธิ์ ประมุขผล \nติดต่อคุณ ชูวิทย์ กลิ่นดี\nห้อง 722";
+			}elseif (strpos($text, 'หอ') !== false) {
+				$text = "ทดสอบ";
 			}
 
 
@@ -55,7 +57,6 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			$result = curl_exec($ch);
 			$result = curl_exec($ch);
 			curl_close($ch);
 
