@@ -22,8 +22,6 @@ if (!is_null($events['events'])) {
 			}elseif ($text == "2222")
 			{
 				$text = "คุณยอดยุทธิ์ ประมุขผล \nติดต่อคุณ ชูวิทย์ กลิ่นดี\nห้อง 722";
-			}elseif (strpos($text, 'หอ') !== false) {
-				$text = "หอพยัคฆ์ลงรอบ 20.00 ห้อง 6 7 8";
 			}else
 			{
 				$text = "";
