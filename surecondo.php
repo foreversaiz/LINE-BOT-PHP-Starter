@@ -21,8 +21,8 @@ if (!is_null($events['events'])) {
 				$name = $obj->{'name'}; 
 				$surname = $obj->{'surname'}; 
 				$image = $obj->{'image'}; 
-				$imagepath = "http://www.axcus.com/sure/image/".$image;
-				$text = "คุณ : ".$name." ".$surname."/nรูปภาพ : ".$imagepath;
+				$imagepath = "http://www.axcus.com/sure/img/".$image;
+				$text = "คุณ : ".$name." ".$surname."\nรูปภาพ : ".$imagepath;
 			}
 			if ($get == "")
 			{
