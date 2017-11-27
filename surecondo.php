@@ -1,57 +1,113 @@
 <?php
-$access_token = 'lQGPlOkZkpXRB761vIxVtfSgtLAyortsQkd+fL6wcXZgkgNxugKPbByBTik6hHP+JptiWQwcw+ccj1lcwXDsxEkfC1YjcEQdIKG64aS/vz8rtpUALTBb4XIFPLDLXbLdDyNSJ200q2kEZJZlUeVwpgdB04t89/1O/w1cDnyilFU=';
-// Get POST body content
-$content = file_get_contents('php://input');
-// Parse JSON
-$events = json_decode($content, true);
-// Validate parsed JSON data
-if (!is_null($events['events'])) {
-	// Loop through each event
-	foreach ($events['events'] as $event) {
-		// Reply only when message sent is in 'text' format
-		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
-			// Get text sent
-			$getTextLine = $event['message']['text'];
-			$getContent = "http://www.axcus.com/sure/lineotp.php?otp=".$getTextLine;
-			$json =  file_get_contents($getContent);
-			$obj = json_decode($json);
-			$get = $obj->{'get'}; 
-			if ($get == "1")
-			{
-				$name = $obj->{'name'}; 
-				$surname = $obj->{'surname'}; 
-				$image = $obj->{'image'}; 
-				$imagepath = "http://www.axcus.com/sure/img/".$image;
-				$text = "คุณ : ".$name." ".$surname."\nรูปภาพ : ".$imagepath;
-			}
-			if ($get == "")
-			{
-				$text = "หมายเลข OTP : ".$getTextLine." ไม่มีในระบบ\nกรุณาตรวจสอบความถูกต้องอีกครึ่งนึง ขอบคุณค่ะ";
-			}
-			// Get replyToken
-			$replyToken = $event['replyToken'];
-			// Build message to reply back
-			$messages = [
-				'type' => 'text',
-				'text' => $text
-			];
-			// Make a POST Request to Messaging API to reply to sender
-			$url = 'https://api.line.me/v2/bot/message/reply';
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => [$messages]
-			];
-			$post = json_encode($data);
-			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			$result = curl_exec($ch);
-			curl_close($ch);
-			echo $result . "\r\n";
-		}
-	}
+$post = file_get_contents('php://input');
+$urlReply = 'https://api.line.me/v2/bot/message/reply';
+$token = 'lQGPlOkZkpXRB761vIxVtfSgtLAyortsQkd+fL6wcXZgkgNxugKPbByBTik6hHP+JptiWQwcw+ccj1lcwXDsxEkfC1YjcEQdIKG64aS/vz8rtpUALTBb4XIFPLDLXbLdDyNSJ200q2kEZJZlUeVwpgdB04t89/1O/w1cDnyilFU=';
+
+
+function postMessage($token,$packet,$urlReply)
+ {
+   $dataEncode = json_encode($packet);
+   $headersOption = array('Content-Type: application/json','Authorization: Bearer '.$token);
+   $ch = curl_init($urlReply);
+   curl_setopt($ch,CURLOPT_CUSTOMREQUEST,'POST');
+   curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+   curl_setopt($ch,CURLOPT_POSTFIELDS,$dataEncode);
+   curl_setopt($ch,CURLOPT_HTTPHEADER,$headersOption);
+   curl_setopt($ch,CURLOPT_FOLLOWLOCATION,1);
+   $result = curl_exec($ch);
+   curl_close($ch);
+ }
+/*
+function getText($replyToken)
+{
+
 }
+*/
+//-----------------------------------------
+
+
+function getTXT($replyToken)
+ {
+ $sendtext = array(
+  'type' => 'text',
+  'text' => "test"
+ );
+
+ $packet = array(
+  'replyToken'=>$replyToken,
+  'messages'=>array($sendtext));
+ return $packet;
+ }
+
+function getSticker($replyToken)
+ {
+   $sticker = array(
+   'type' => 'sticker',
+   'packageId' => '4',
+   'stickerId' => '300'
+   );
+   $packet = array(
+   'replyToken' => $replyToken,
+   'messages' => array($sticker)
+   );
+   return $packet;
+ }
+//-----------------------------------------
+function getIMG($replyToken)
+ {
+   $sendimage = array(
+   'type' => 'image',
+   'originalContentUrl' => 'http://www.axcus.com/sure/img/5a1508800c4f9.jpg',
+   'previewImageUrl' => 'http://www.axcus.com/sure/img/5a1508800c4f9.jpg'
+   );
+   $packet = array(
+   'replyToken' => $replyToken,
+   'messages' => array($sendimage)
+   );
+   return $packet;
+ }
+//-----------------------------------------
+
+
+$res = json_decode($post, true);
+
+if(isset($res['events']) && !is_null($res['events']))
+ {
+  foreach($res['events'] as $item)
+   {
+   if($item['type'] == 'message')
+    {
+    switch($item['message']['type']){
+      case 'text':
+       $packet = getTXT($item['replyToken']);
+       postMessage($token,$packet,$urlReply);
+     break;
+     case 'image':
+      $packet = getIMG($item['replyToken']);
+       postMessage($token,$packet,$urlReply);
+      
+     break;
+      case 'video':
+      
+      break;
+      case 'audio':
+      
+      break;
+      case 'location':
+     break;
+      case 'sticker':
+       $packet = getSticker($item['replyToken']);
+       postMessage($token,$packet,$urlReply);
+
+      break;
+     }
+
+
+$packet = getIMG($item['replyToken']);
+       postMessage($token,$packet,$urlReply);
+    }
+   }
+ }
+
+//RysJFpGt66ET662jmX1UzKP6lEESdj7wG8g3kothyr1xA71V+kxrewo91YxnmlIdaAWe7P7Qia7fuVFHCuocea1F/td6V6rKY0zP1X9C0Y2cYMoRA8uMDgImxZNpbfoeBZDpogggJm2eZTFcv+7C1gdB04t89/1O/w1cDnyilFU=
+?>
