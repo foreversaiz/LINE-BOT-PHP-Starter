@@ -62,25 +62,25 @@ if (!is_null($events['events'])) {
 			$result = curl_exec($ch);
 			curl_close($ch);
 
-			$url = 'https://api.line.me/v2/bot/message/reply';
+			$url1 = 'https://api.line.me/v2/bot/message/reply';
 			$data1 = [
 				'replyToken' => $replyToken,
 				'messages' => [$messages1]
 			];
-			$post = json_encode($data1);
-			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			$result = curl_exec($ch);
-			curl_close($ch);
+			$post1 = json_encode($data1);
+			$headers 1= array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+			$ch1 = curl_init($url1);
+			curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch1, CURLOPT_POSTFIELDS, $post1);
+			curl_setopt($ch1, CURLOPT_HTTPHEADER, $headers1);
+			curl_setopt($ch1, CURLOPT_FOLLOWLOCATION, 1);
+			$result1 = curl_exec($ch1);
+			curl_close($ch1);
 
 
 
-			echo $result . "\r\n";
+			echo $result1 . "\r\n";
 		}
 	}
 }
