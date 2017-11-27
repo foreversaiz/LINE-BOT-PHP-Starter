@@ -13,7 +13,7 @@ if (!is_null($events['events'])) {
 			// Get text sent
 			$text = $event['message']['text'];
 			$getContent = "http://www.axcus.com/sure/lineotp.php?otp=".$text;
-			$text =  file_get_contents($getContent);
+			$text =  "รุ่นทดสอบ ".file_get_contents($getContent);
 
 			// Get replyToken
 			$replyToken = $event['replyToken'];
