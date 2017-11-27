@@ -13,7 +13,9 @@ if (!is_null($events['events'])) {
 			// Get text sent
 			$getTextLine = $event['message']['text'];
 			$getContent = "http://www.axcus.com/sure/lineotp.php?otp=".$getTextLine;
-			$text =  file_get_contents($getContent);
+			$json =  file_get_contents($getContent);
+			$obj = json_decode($json);
+			$text = $obj->{'get'}; 
 			if ($text == "")
 			{
 				$text = "หมายเลข OTP : ".$getTextLine." ไม่มีในระบบ\nกรุณาตรวจสอบความถูกต้องอีกครึ่งนึง ขอบคุณค่ะ";
