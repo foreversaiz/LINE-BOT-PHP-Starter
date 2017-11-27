@@ -57,8 +57,8 @@ function getIMG($replyToken)
  {
    $sendimage = array(
    'type' => 'image',
-   'originalContentUrl' => 'http://www.axcus.com/sure/img/5a1508800c4f9.jpg',
-   'previewImageUrl' => 'http://www.axcus.com/sure/img/5a1508800c4f9.jpg'
+   'originalContentUrl' => 'https://sure.co.th/full.jpg',
+   'previewImageUrl' => 'https://sure.co.th/240.jpg'
    );
    $packet = array(
    'replyToken' => $replyToken,
