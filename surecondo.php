@@ -11,10 +11,13 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
-			$text = $event['message']['text'];
-			$getContent = "http://www.axcus.com/sure/lineotp.php?otp=".$text;
-			$text =  "รุ่นทดสอบ ".file_get_contents($getContent);
-
+			$getTextLine = $event['message']['text'];
+			$getContent = "http://www.axcus.com/sure/lineotp.php?otp=".$getTextLine;
+			$text =  file_get_contents($getContent);
+			if ($text == "")
+			{
+				$text = "หมายเลข OTP : ".$getTextLine." ไม่มีในระบบ\nกรุณาตรวจสอบความถูกต้องอีกครึ่งนึง ขอบคุณค่ะ";
+			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
