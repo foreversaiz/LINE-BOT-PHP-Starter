@@ -12,8 +12,8 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
-			$getContent = "http://www.axcus.com/sure/lineotp.php?otp=".$text;
-			$text =  file_get_contents($getContent);
+			$text = "http://www.axcus.com/sure/lineotp.php?otp=".$text;
+			//$text =  file_get_contents($getContent);
 			/*if ($text == "1087")
 			{
 				$text = "คุณกิตติศักดิ์ เสนาการ\nติดต่อคุณ ประวิทย์ มั่นคง\nห้อง 301";
