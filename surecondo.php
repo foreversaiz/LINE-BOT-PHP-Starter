@@ -33,12 +33,13 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $text,
+				'text' => $text
+			];
+			$messages1 = [
 				'type' => 'sticker',
 				'packageId' => '1',
 				'stickerId' => '1'
 			];
-
 	
 
 
@@ -61,7 +62,13 @@ if (!is_null($events['events'])) {
 			$result = curl_exec($ch);
 			curl_close($ch);
 
-			$post = json_encode($data);
+
+			$data1 = [
+				'replyToken' => $replyToken,
+				'messages' => [$messages1]
+			];
+
+			$post = json_encode($data1);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
