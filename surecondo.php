@@ -15,8 +15,16 @@ if (!is_null($events['events'])) {
 			$getContent = "http://www.axcus.com/sure/lineotp.php?otp=".$getTextLine;
 			$json =  file_get_contents($getContent);
 			$obj = json_decode($json);
-			$text = $obj->{'name'}; 
-			if ($text == "")
+			$get = $obj->{'get'}; 
+			if ($get == "1")
+			{
+				$name = $obj->{'name'}; 
+				$surname = $obj->{'surname'}; 
+				$image = $obj->{'image'}; 
+				$imagepath = "http://www.axcus.com/sure/image/".$image;
+				$text = "คุณ : ".$name." ".$surname."/nรูปภาพ : ".$imagepath;
+			}
+			if ($get == "")
 			{
 				$text = "หมายเลข OTP : ".$getTextLine." ไม่มีในระบบ\nกรุณาตรวจสอบความถูกต้องอีกครึ่งนึง ขอบคุณค่ะ";
 			}
