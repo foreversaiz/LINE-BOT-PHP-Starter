@@ -12,21 +12,9 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
-			$text = "http://www.axcus.com/sure/lineotp.php?otp=".$text;
-			//$text =  file_get_contents($getContent);
-			/*if ($text == "1087")
-			{
-				$text = "คุณกิตติศักดิ์ เสนาการ\nติดต่อคุณ ประวิทย์ มั่นคง\nห้อง 301";
-			}elseif ($text == "1111")
-			{
-				$text = "คุณสมชาย ทองดี \nติดต่อคุณ นวัตกรณ์ บุญศิริ\nห้อง 1012";
-			}elseif ($text == "2222")
-			{
-				$text = "คุณยอดยุทธิ์ ประมุขผล \nติดต่อคุณ ชูวิทย์ กลิ่นดี\nห้อง 722";
-			}else
-			{
-				$text = "";
-			}*/
+			$getContent = "http://www.axcus.com/sure/lineotp.php?otp=".$text;
+			$text =  file_get_contents($getContent);
+
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
